@@ -1,0 +1,158 @@
+@font-face {
+    font-family: "Open Sans", sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+    transition-duration: 200ms;
+    animation: fade-up 0.5s;
+}
+
+.LogoName {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.FormHeader {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.FormSubtitle {
+    font-size: 15px;
+}
+
+.Input {
+    margin-top: 23px;
+    font-size: 20px;
+    width: 100%;
+}
+
+.PasswordInput,
+.EmailInput {
+    width: 100%;
+    height: 49px;
+    font-size: 20px;
+    border-radius: 10px;
+    font-family: 'Open Sans', sans-serif;
+    padding-left: 5px;
+}
+
+.LoginLink {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    border-radius: 10px;
+    transition-duration: 200ms;
+}
+
+.LoginLink:hover {
+    text-decoration: none;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+
+.LoginButton {
+    margin-top: 23px;
+    font-family: 'Open Sans', sans-serif;
+    height: 49px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 20px;
+    background-color: #BCCC57;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition-duration: 75ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoginButtonPressed {
+    margin-top: 23px;
+    font-family: 'Open Sans', sans-serif;
+    height: 49px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 20px;
+    background-color: #282c34;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition-duration: 75ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px;
+    border-color: #BCCC57;
+    color: white;
+    border-radius: 15px;
+}
+
+.LoginButton:hover {
+    background-color: #282c34;
+    border: solid 1px;
+    border-color: #BCCC57;
+    color: white;
+    border-radius: 15px;
+}
+
+.SignUp {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.SignUpLink {
+    margin-left: 5px;
+    color: #BCCC57;
+    transition-duration: 200ms;
+    text-decoration: none;
+}
+
+.SignUpLink:hover {
+    color: white;
+    background-color: #BCCC57;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1)
+    }
+}
