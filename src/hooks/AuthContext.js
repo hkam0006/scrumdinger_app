@@ -43,7 +43,7 @@ export function AuthContextProvider({children}){
   }
 
   function deleteAccount(){
-    if (authorisation === null ) {
+    if (auth.currentUser === null ) {
       return
     } else {
       const user = auth.currentUser
