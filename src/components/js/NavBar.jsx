@@ -1,15 +1,19 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../css/NavBar.css'
 import { SlLogout } from 'react-icons/sl';
 import { BsPersonCircle } from "react-icons/bs";
-import { auth } from '../../firebase'
+import { useAuthContext } from '../../hooks/AuthContext';
 
 export default function NavBar() {
+  const { signOutUser } = useAuthContext()
   const navigate = useNavigate()
 
   function handleLogOut() {
-    auth.signOut()
-    navigate("/")
+    signOutUser().then((res) => {
+      navigate("/")
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 
   return (

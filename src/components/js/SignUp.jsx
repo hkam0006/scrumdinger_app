@@ -1,14 +1,14 @@
-import { auth } from "../../firebase"
-import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
 import { Circles } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from "../../hooks/AuthContext"
 
 export default function SignUp({ setLoginState }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const { signUpUser, loading } = useAuthContext()
+
 
   function signInPressed() {
     setLoginState(true)
@@ -16,16 +16,11 @@ export default function SignUp({ setLoginState }) {
 
   const signUpButtonPressed = (e) => {
     e.preventDefault()
-    setLoading(true)
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setLoading(false)
-        navigate("/home")
-      })
-      .catch((err) => {
-        setLoading(false)
-        console.log(err)
-      })
+    signUpUser(email, password).then((userCredential) => {
+      navigate("/home")
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 
   return (

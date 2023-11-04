@@ -1,31 +1,27 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../css/SignIn.css'
-import { auth } from "../../firebase"
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Circles } from 'react-loader-spinner';
+import { useAuthContext } from '../../hooks/AuthContext';
 
 export default function SignIn({ setLoginState }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const { signInUser, authorisation, loading } = useAuthContext()
 
   function signUpPressed() {
     setLoginState(false);
   }
 
-  const loginButtonPressed = (e) => {
+  function loginButtonPressed(e) {
     e.preventDefault();
-    setLoading(true)
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setLoading(false)
-        navigate("/home")
-      }).catch((err) => {
-        setLoading(false)
-        console.log(err)
-      })
+    signInUser(email, password).then((userCredential) => {
+      console.log(userCredential)
+      navigate("/home")
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   return (
