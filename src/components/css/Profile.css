@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;800&display=swap');
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 90%;
+    height: 85%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    margin: 0px;
+    color: #BCCC57;
+}
+
+.sidebar {
+    background-color: #5430BB;
+    grid-area: 1 / 1 / -1 / 2;
+    margin: 10px;
+    border-radius: 20px;
+    padding: 20px;
+    animation: fade-left 0.5s;
+}
+
+.sidebar ul {
+    padding: 0;
+}
+
+.sidebar ul li {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    margin: 0px;
+    list-style: none;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 5px;
+    border: solid 2px;
+    border-color: #5430BB;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background-color: #4116b6;
+    transition: 0.3s;
+}
+
+.main-screen {
+    background-color: #5430BB;
+    animation: fade-right 0.5s;
+    grid-area: 1 / 2 / -1 / -1;
+    margin: 10px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.AccountInformation {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.DeleteButton .ChangePasswordButton {
+    height: 30px;
+    margin-top: 10px;
+}
+
+.main-screen label {
+    height: 30px;
+    width: 100%;
+}
+
+@keyframes fade-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.9)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px) scale(1)
+    }
+}
+
+@keyframes fade-right {
+    0% {
+        opacity: 0;
+        transform: translateX(30px) scale(0.9)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px) scale(1)
+    }
+}
