@@ -1,16 +1,4 @@
-@font-face {
-    font-family: "Open Sans", sans-serif;
-    src: url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Open Sans', sans-serif;
-    src: url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
-    font-weight: bold;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;800&display=swap');
 
 .page {
     display: flex;
@@ -38,7 +26,7 @@
 
 .SloganHeader {
     font-size: 50px;
-    font-weight: bold;
+    font-weight: 800;
 }
 
 .Slogan {
