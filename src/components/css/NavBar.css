@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
 
 .NavBarContainer {
-    height: 46px;
+    width: 100%;
     font-size: 15px;
     font-family: 'ABeeZee', sans-serif;
     animation: fade-down 0.5s;
+    position: fixed;
+    top: 0px;
 }
 
 .NavBarPositioner {
@@ -13,7 +15,6 @@
     display: flex;
     justify-content: space-between;
     padding: 13px;
-
 }
 
 .Logo {
@@ -21,7 +22,7 @@
     padding: 7px 15px;
     color: white;
     border: 1px solid;
-    border-color: #FBF2A2;
+    border-color: #BCCC57;
     border-radius: 10px;
 }
 
@@ -52,6 +53,7 @@
 
 .LogOutIcon,
 .ProfileIcon {
+    height: 100%;
     color: gray;
     display: flex;
     align-items: center;
