@@ -1,6 +1,8 @@
 import './App.css';
 import NavBar from './components/js/NavBar';
+import RequireAuth from './components/js/RequireAuth';
 import { AuthContextProvider } from './hooks/AuthContext';
+import HomePage from './pages/js/HomePage';
 import LandingPage from './pages/js/LandingPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -10,7 +12,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<NavBar />} />
+          <Route element={<RequireAuth />}>
+            <Route path="/home" element={<HomePage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
