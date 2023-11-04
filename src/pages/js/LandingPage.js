@@ -4,7 +4,7 @@ import { FaPersonRunning } from "react-icons/fa6";
 import { useState } from 'react';
 import SignUp from '../../components/js/SignUp';
 
-export default function Login(){
+export default function LandingPage(){
   const [loginState, setLoginState] = useState(true)
 
   return (

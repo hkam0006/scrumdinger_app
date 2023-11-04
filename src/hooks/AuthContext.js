@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword } from "firebase/auth"
 import { createContext, useContext, useState } from "react"
 import { auth } from "../firebase"
 
@@ -42,6 +42,22 @@ export function AuthContextProvider({children}){
     })
   }
 
+  function deleteAccount(){
+    if (authorisation === null ) {
+      return
+    } else {
+      const user = auth.currentUser
+      return new Promise((resolve, reject) => {
+        deleteUser(user).then(() => {
+          console.log("User Deleted")
+          resolve("User Deleted Successfully")
+        }).catch((error) => {
+          reject(error)
+        })
+      })
+    }
+  }
+
   function signUpUser(email, password){
     setLoading(true)
     return new Promise((resolve, reject) => {
@@ -59,7 +75,7 @@ export function AuthContextProvider({children}){
   }
 
   return <AuthContext.Provider value={
-    {signInUser, signOutUser, signUpUser, authorisation, loading}
+    {signInUser, signOutUser, signUpUser, authorisation, loading, deleteAccount}
     }>
     {children}
   </AuthContext.Provider>
