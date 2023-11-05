@@ -5,9 +5,6 @@ import { useAuthContext } from "../../hooks/AuthContext";
 
 
 export default function HomePage(){
-  const {authorisation} = useAuthContext()
-  const navigate = useNavigate()
-
   return <>
     <NavBar />
     <Profile />
