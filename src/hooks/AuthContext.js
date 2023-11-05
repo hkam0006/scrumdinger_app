@@ -1,6 +1,6 @@
-import { createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword } from "firebase/auth"
-import { createContext, useContext, useState } from "react"
-import { auth } from "../firebase"
+import { EmailAuthProvider, createUserWithEmailAndPassword, deleteUser, reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth"
+import { createContext, useContext, useEffect, useState } from "react"
+import { auth, app } from "../firebase"
 
 const AuthContext = createContext(null)
 
@@ -9,15 +9,53 @@ export function useAuthContext(){
 }
 
 export function AuthContextProvider({children}){
-  const [authorisation, setAuthorisation] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    auth.onAuthStateChanged((user) => {
+      setCurrentUser(user)
+      setLoading(false)
+    });
+  }, [])
+
+  function reauthenticateUser(password){
+    return new Promise((resolve, reject) => {
+      const credential = EmailAuthProvider.credential(
+        currentUser.email,
+        password
+      )
+      reauthenticateWithCredential(auth.currentUser, credential).then(() => {
+        resolve("Correct Password")
+      }).catch((err) => {
+        reject(err)
+      })
+    })
+  }
+
+  function changePassword(newPassword){
+    if (auth.currentUser === null) {
+      return
+    } else {
+      return new Promise((resolve, reject) => {
+        updatePassword(auth.currentUser, newPassword)
+          .then(() => {
+            resolve("Update Successful")
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      }) 
+    }
+  }
 
   function signInUser(email, password){
     setLoading(true)
     return new Promise((resolve, reject) => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          setAuthorisation(userCredential)
+          setCurrentUser(userCredential)
           setLoading(false)
           resolve(userCredential)
         })
@@ -32,7 +70,7 @@ export function AuthContextProvider({children}){
     setLoading(true)
     return new Promise((resolve, reject) => {
       auth.signOut().then(() => {
-        setAuthorisation(null)
+        setCurrentUser(null)
         setLoading(false)
         resolve(true)
       }).catch((error) => {
@@ -63,7 +101,7 @@ export function AuthContextProvider({children}){
     return new Promise((resolve, reject) => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          setAuthorisation(userCredential)
+          setCurrentUser(userCredential)
           setLoading(false)
           resolve(userCredential)
         })
@@ -75,7 +113,16 @@ export function AuthContextProvider({children}){
   }
 
   return <AuthContext.Provider value={
-    {signInUser, signOutUser, signUpUser, authorisation, loading, deleteAccount}
+    {
+      signInUser, 
+      signOutUser, 
+      signUpUser, 
+      currentUser, 
+      loading, 
+      deleteAccount, 
+      changePassword,
+      reauthenticateUser,
+    }
     }>
     {children}
   </AuthContext.Provider>
