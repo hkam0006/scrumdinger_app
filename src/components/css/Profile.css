@@ -68,18 +68,105 @@ h1 {
 
 .AccountInformation {
     margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 100px);
+    column-gap: 10px;
+}
+
+.BottomGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 50px;
+}
+
+.DeleteButton {
+    height: 30px;
+    justify-self: right;
+    align-self: end;
+}
+
+.ChangePasswordInput {
+    height: 20px;
+}
+
+.InputLabel {
+    align-items: center;
+    justify-self: end;
+    padding-right: 10px;
+
+}
+
+.ChangePasswordButton {
+    height: 30px;
+    justify-self: left;
+    align-self: end;
+}
+
+.AccountInformation label {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.DeleteButton .ChangePasswordButton {
-    height: 30px;
+.AccountInformation label input {
     margin-top: 10px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 7px;
 }
 
-.main-screen label {
-    height: 30px;
+.modal-positioner {
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fade-down 0.5s;
+}
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: auto;
+}
+
+.CloseModal {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.CloseModal:hover,
+.CloseModal:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.modal-form {
+    margin: auto;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 20px;
+    width: 70%;
 }
 
 @keyframes fade-left {
