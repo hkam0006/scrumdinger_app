@@ -17,7 +17,6 @@ export default function SignIn({ setLoginState }) {
   function loginButtonPressed(e) {
     e.preventDefault();
     signInUser(email, password).then((userCredential) => {
-      console.log(userCredential)
       navigate("/home")
     }).catch((err) => {
       console.log(err)
