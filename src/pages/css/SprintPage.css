@@ -1,0 +1,58 @@
+.kanban-content {
+    width: 90%;
+    height: 85%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 50px;
+    animation: fade-down 0.5s;
+}
+
+.board {
+    background-color: #5430BB;
+    border-radius: 20px;
+    overflow-y: scroll;
+}
+
+.NotDoneBoard {
+    grid-area: 1 / 1 / -1 / 2;
+}
+
+.InProgressBoard {
+    grid-area: 1 / 2 / -1 / 3;
+}
+
+.CompletedBoard {
+    grid-area: 1 / 3 / -1 / 4;
+}
+
+.NotDoneBoard h1,
+.InProgressBoard h1,
+.CompletedBoard h1 {
+    position: sticky;
+    background-color: #5430BB;
+    top: 0px;
+    left: 0px;
+    height: 40px;
+    padding: 10px;
+}
+
+.ListItem {
+    height: 50px;
+    background-color: white;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    cursor: grab;
+    border-radius: 10px;
+    border: solid 2px;
+    border-color: #5430BB;
+}
+
+.ListItem:hover {
+    border: solid 2px;
+    border-color: red;
+}
