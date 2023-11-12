@@ -51,8 +51,7 @@
     color: gray;
 }
 
-.LogOutIcon,
-.ProfileIcon {
+.LogOutIcon {
     height: 100%;
     color: gray;
     display: flex;
@@ -64,8 +63,20 @@
     margin-left: 5px;
 }
 
+.ProfileIcon a {
+    height: 100%;
+    border-radius: 10px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: gray;
+    padding: 0px 10px;
+    margin-left: 5px;
+}
+
 .LogOutIcon:hover,
-.ProfileIcon:hover,
+.ProfileIcon a:hover,
 .NavBarLinks a:hover {
     color: yellow;
     cursor: pointer;

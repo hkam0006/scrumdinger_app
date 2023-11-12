@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/NavBar.css'
 import { SlLogout } from 'react-icons/sl';
 import { BsPersonCircle } from "react-icons/bs";
@@ -27,16 +27,16 @@ export default function NavBar() {
 
           {/* Navigation */}
           <div className="NavBarLinks">
-            <a href="#">Teams</a>
+            <Link to="/home/team">Teams</Link>
             <div className='LinkDivider'>|</div>
-            <a href="#">Sprint</a>
+            <Link to="/home/sprint">Sprint</Link>
             <div className='LinkDivider'>|</div>
-            <a href="#">Metrics</a>
+            <Link to="/home/metrics">Metrics</Link>
             <div className='LinkDivider'>|</div>
-            <a href="#">Chat</a>
+            <Link to='/home/chat'>Chat</Link>
           </div>
 
-          <div className='ProfileIcon'><BsPersonCircle /></div>
+          <div className='ProfileIcon'><Link to="/home/profile"><BsPersonCircle /></Link></div>
 
           {/* Log in/out */}
           <div className='LogOutIcon' onClick={() => handleLogOut()}><SlLogout /></div>
