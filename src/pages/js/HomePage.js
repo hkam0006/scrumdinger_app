@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import NavBar from "../../components/js/NavBar";
-import Profile from "../../components/js/Profile";
-import { useAuthContext } from "../../hooks/AuthContext";
+import '../css/HomePage.css'
 
 
 export default function HomePage(){
   return <>
-    <NavBar />
-    <Profile />
+      <NavBar />
+      <Outlet />
   </>
 }
