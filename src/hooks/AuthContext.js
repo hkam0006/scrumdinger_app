@@ -23,7 +23,7 @@ export function AuthContextProvider({children}){
   function reauthenticateUser(password){
     return new Promise((resolve, reject) => {
       const credential = EmailAuthProvider.credential(
-        currentUser.email,
+        currentUser.user.email,
         password
       )
       reauthenticateWithCredential(auth.currentUser, credential).then(() => {
