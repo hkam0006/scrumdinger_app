@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
 import { useAuthContext } from "../../hooks/AuthContext"
-import { BsBack } from "react-icons/bs";
 
 export default function PasswordModal({toggleShow}){
-  const {changePassword, reauthenticateUser} = useAuthContext();
+  const {changePassword, reauthenticateUser, currentUser} = useAuthContext();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
