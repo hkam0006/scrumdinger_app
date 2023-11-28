@@ -1,23 +1,25 @@
-import { SortableContext, verticalListSortingStrategy, horizontalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
 import { SortableItem } from "./SortableItem";
-import { useDroppable } from "@dnd-kit/core";
+import { Droppable } from "react-beautiful-dnd";
 
-export default function KanbanColumn(props) {
-
-  const { setNodeRef } = useDroppable({
-    id: props.id,
-    data: {
-      type: "Column"
-    }
-  })
+export default function KanbanColumn({ id, tasks }) {
 
   return <>
-    <SortableContext id={props.id} items={props.tasks} >
-      <div ref={setNodeRef}>
-        {props.tasks.map((task) => (
-          <SortableItem key={task.id} id={task.id} columnID={props.id} />
-        ))}
-      </div>
-    </SortableContext>
+    <Droppable droppableId={id} key={id}>
+      {(provided, snapshot) => (
+        <div {...provided.droppableProps} ref={provided.innerRef} style={{
+          width: "100%",
+          height: "80%",
+          background: snapshot.isDraggingOver ? 'black' : '#282c34',
+          borderRadius: '10px',
+        }}>
+          {tasks.map((item, index) => {
+            return (
+              <SortableItem index={index} item={item} key={item.id} />
+            )
+          })}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable >
   </>
 }
