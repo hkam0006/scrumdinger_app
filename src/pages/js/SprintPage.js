@@ -1,80 +1,82 @@
 import { useState } from 'react';
 import '../css/SprintPage.css'
-import { FaBars } from "react-icons/fa6";
-import { DndContext, closestCenter, rectIntersection, useSensor, PointerSensor } from '@dnd-kit/core';
-import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { SortableItem } from '../../components/js/SortableItem';
 import KanbanColumn from '../../components/js/KanbanColumn';
+import { DragDropContext} from 'react-beautiful-dnd';
+import {v4 as uuidv4} from 'uuid'
+
+const listPlaceholder = {
+  allocated: {
+    title: "allocated",
+    tasks: []
+  },
+  todo: {
+    title: "todo",
+    tasks: [{id: uuidv4(), task: "Task 1"}, {id: uuidv4(), task: "Task 2"}, {id: uuidv4(), task: "Task 3"}, {id: uuidv4(), task: "Task 4"}]
+  },
+  doing: {
+    title: "doing",
+    tasks: []
+  },
+  done: {
+    title: "done",
+    tasks: []
+  }
+}
+
+function onDragEnd(result, columns, setColumns){
+  if(!result.destination) return;
+  const copiedColumns = {...columns}
+  const {source, destination} = result;
+  if (source.droppableId !== destination.droppableId){
+    const sourceColumn = columns[source.droppableId]
+    const destColumn = columns[destination.droppableId]
+    const sourceTasks = [...sourceColumn.tasks]
+    const destTasks = [...destColumn.tasks]
+    console.log(sourceTasks)
+    const [removed] = sourceTasks.splice(source.index, 1)
+    destTasks.splice(destination.index, 0, removed)
+    copiedColumns[source.droppableId]["tasks"] = sourceTasks
+    copiedColumns[destination.droppableId]["tasks"]= destTasks
+  } else {
+    const column = columns[source.droppableId];
+    const copiedItems = [...column.tasks];
+    const [removed] = copiedItems.splice(source.index, 1);
+    copiedItems.splice(destination.index, 0, removed);
+    copiedColumns[source.droppableId].tasks = copiedItems
+  }
+  setColumns(copiedColumns)
+}
 
 export default function SprintPage(){
-  const notDoneListPlaceholder = [
-    {id: "Javascript", columnID: "todo"},
-    {id: "HTML", columnID: "todo"},
-    {id: "CSS", columnID: "done"},
-    {id: "Typescript", columnID: "doing"},
-    {id: "Python", columnID: "done"}
-  ]
-
-  const [tasks, setTasks] = useState(notDoneListPlaceholder);
-  const [activeTask, setActiveTask] = useState(null);
-  const [activeColumn, setActiveColumn] = useState(null)
-
+  const [columns, setColumns] = useState(listPlaceholder);
+  
   return <>
-    <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
+    <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
       <div className="container">
         <div className="kanban-content">
           <div className="NotDoneBoard board" id="todo">
-            <h1>To Do</h1>
-            <KanbanColumn id="todo" tasks={tasks.filter((task) => task.columnID === "todo")}/>
+            <div className='Counter'>
+              <h1>To Do</h1>
+              {columns.todo.tasks.length > 0 ? <div className='CounterAlert'>{columns.todo.tasks.length}</div> : <div/>}
+            </div>
+            <KanbanColumn id="todo" tasks={columns.todo.tasks} key="todo"/>
           </div>
           <div className="InProgressBoard board" id="doing">
-            <h1>In Progress</h1>
-            <KanbanColumn id="doing" tasks={tasks.filter((task) => task.columnID === "doing")} />
+            <div className='Counter'>
+              <h1>In Progress</h1>
+              {columns.doing.tasks.length > 0 ? <div className='CounterAlert ToDoAlert'>{columns.doing.tasks.length}</div> : <div/>}
+            </div>
+            <KanbanColumn id="doing" tasks={columns.doing.tasks} key="doing"/>
           </div>
           <div className="CompletedBoard board" id='done'>
-            <h1>Completed</h1>
-            <KanbanColumn id="done" tasks={tasks.filter((task) => task.columnID === "done")} />
+            <div className='Counter'>
+              <h1>Completed</h1>
+              {columns.done.tasks.length > 0 ? <div className='CounterAlert DoneAlert'>{columns.done.tasks.length}</div> : <div/>}
+            </div>
+            <KanbanColumn id="done" tasks={columns.done.tasks} key="done"/>
           </div>
         </div>
       </div>
-    </DndContext>
+    </DragDropContext>
   </>
-
-  function handleDragEnd(event) {
-    const {active, over} = event;
-    // console.log(active)
-    // console.log(over)
-  }
-
-  function handleDragOver(event){
-    const {active, over} = event
-    const activeID = active.id
-    const overID = over.id
-
-    const isOverTask = over.data.current.type === "Task"
-    if (isOverTask){
-      console.log("Over Task")
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeID);
-        const overIndex = tasks.findIndex((t) => t.id === overID);
-
-        tasks[activeIndex].columnID = tasks[overIndex].columnID;
-        return arrayMove(tasks, activeIndex, overIndex);
-      })
-    }
-
-    const isOverColumn = over.data.current.type === "Column"
-
-    if (isOverColumn){
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeID);
-        const newColumnID = over.id;
-
-        tasks[activeIndex].columnID = newColumnID
-        return arrayMove(tasks, activeIndex, activeIndex);
-      })
-    }
-  }
-
-  function handleDragStart(event){}
 }

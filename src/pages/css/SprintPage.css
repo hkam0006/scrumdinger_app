@@ -9,7 +9,7 @@
 }
 
 .board {
-    background-color: #5430BB;
+    background-color: none;
     border-radius: 20px;
     overflow-y: scroll;
 }
@@ -30,7 +30,7 @@
 .InProgressBoard h1,
 .CompletedBoard h1 {
     position: sticky;
-    background-color: #5430BB;
+    background-color: #282C34;
     top: 0px;
     left: 0px;
     height: 40px;
@@ -40,9 +40,7 @@
 .ListItem {
     height: 50px;
     background-color: white;
-    width: 90%;
-    margin: auto;
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
     justify-items: center;
@@ -50,9 +48,39 @@
     border-radius: 10px;
     border: solid 2px;
     border-color: #5430BB;
+    padding: 5px;
 }
 
 .ListItem:hover {
     border: solid 2px;
     border-color: red;
+}
+
+.Counter {
+    background-color: #282C34;
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.CounterAlert {
+    background-color: red;
+    font-weight: bolder;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.ToDoAlert {
+    background-color: yellow;
+}
+
+.DoneAlert {
+    background-color: green;
+}
+
+.ListItem .TaskContent {
+    margin-left: 10px;
 }
