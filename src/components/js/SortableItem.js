@@ -1,31 +1,42 @@
-import { useSortable } from "@dnd-kit/sortable";
-import {CSS} from "@dnd-kit/utilities";
+import { Draggable } from "react-beautiful-dnd";
 import { FaBars } from "react-icons/fa6";
 
-export function SortableItem(props) {
+function getStyle(style, snapshot) {
+  if (!snapshot.isDropAnimating) {
+    return style
+  }
+  const { moveTo, curve, duration } = snapshot.dropAnimation;
+  console.log(snapshot.dropAnimation)
+  // move to the right spot
+  const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`;
+  // add a bit of turn for fun
+  const rotate = 'rotate(0turn)';
 
-    const {
-      attributes,
-      listeners,
-      setNodeRef,
-      transform,
-      transition
-    } = useSortable({
-      id: props.id,
-      data: {
-        type: "Task",
-      },
-    });
+  // patching the existing style
+  return {
+    ...style,
+    transform: `${translate}`,
+    // slowing down the drop because we can
+  };
+}
 
-    const style = {
-      transform: CSS.Transform.toString(transform),
-      transition
-    }
-
+export function SortableItem({index, item}) {
     return (
-      <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="ListItem" >
-          <FaBars/>
-          {props.id}
-      </div>
+      <Draggable key={item.id} draggableId={item.id} index={index}>
+        {(provided, snapshot) => {
+          return (
+            <div 
+              {...provided.dragHandleProps} 
+              {...provided.draggableProps} 
+              className="ListItem" 
+              style={getStyle(provided.draggableProps.style, snapshot)}
+              ref={provided.innerRef}
+            >
+              <FaBars />
+              <div className="TaskContent">{item.task}</div>
+            </div>
+          )
+        }}
+      </Draggable>
     )
 }
